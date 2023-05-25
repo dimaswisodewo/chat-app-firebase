@@ -208,7 +208,8 @@ class LoginViewController: UIViewController {
             return false
         }
         
-        if password.count < 6 {
+        // validate password length only when registering
+        if loginRegisterSegmentedControl.selectedSegmentIndex == 1, password.count < 6 {
             
             passwordTextField.isError(baseColor: passwordTextField.tintColor.cgColor, numberOfShakes: 2, revert: true)
             setErrorLabel(isHidden: false, errorMessage: "Password length must be more than 6 characters!")
@@ -291,11 +292,9 @@ class LoginViewController: UIViewController {
             
             guard let unwrappedSelf = self else { return }
             
-            
-            
             print("Login success! email: \(String(describing: authResult?.user.email))")
             
-            unwrappedSelf.view.window?.rootViewController = UINavigationController(rootViewController: HomeViewController())
+            unwrappedSelf.view.window?.rootViewController = UINavigationController(rootViewController: MainTabBarViewController())
             unwrappedSelf.view.window?.makeKeyAndVisible()
         }
     }
@@ -343,7 +342,8 @@ class LoginViewController: UIViewController {
                 }
                 
                 print("Saved user successfully into Firestore")
-                self?.setErrorLabel(isHidden: true)
+                self?.errorLabel.isHidden = false
+                self?.errorLabel.text = "Register successful!"
             })
         }
     }

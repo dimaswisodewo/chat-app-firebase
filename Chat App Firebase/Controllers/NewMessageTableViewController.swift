@@ -18,7 +18,9 @@ class NewMessageTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        navigationItem.title = "New message"
+        
         // Setup bar button item
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.backward"), style: .plain, target: self, action: #selector(handleCancel))
         
@@ -35,7 +37,7 @@ class NewMessageTableViewController: UITableViewController {
     
     private func fetchUsers() {
         
-        let ref = db.collection("users")
+        let ref = db.collection("users").order(by: "name")
         ref.getDocuments { [weak self] querySnapshot, error in
             
             guard let querySnapshot = querySnapshot else {
@@ -71,12 +73,13 @@ class NewMessageTableViewController: UITableViewController {
         cell.tintColor = .label
         
         var contentConfig = cell.defaultContentConfiguration()
+        
         contentConfig.text = users[indexPath.row].name
         contentConfig.secondaryText = users[indexPath.row].email
         contentConfig.textProperties.numberOfLines = 0
         contentConfig.textProperties.font = UIFont.boldSystemFont(ofSize: 20)
         contentConfig.secondaryTextProperties.numberOfLines = 0
-        contentConfig.secondaryTextProperties.font = UIFont.systemFont(ofSize: 12)
+        contentConfig.secondaryTextProperties.font = UIFont.systemFont(ofSize: 14)
         contentConfig.directionalLayoutMargins = .init(top: 20, leading: 36, bottom: 20, trailing: 36)
         contentConfig.textToSecondaryTextVerticalPadding = 10.0
         

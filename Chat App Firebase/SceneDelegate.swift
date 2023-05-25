@@ -20,7 +20,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.windowScene = windowScene
         
         let isLoggedIn = Auth.auth().currentUser?.uid != nil
-        window?.rootViewController = UINavigationController(rootViewController: isLoggedIn ? HomeViewController() : LoginViewController())
+        window?.rootViewController = UINavigationController(rootViewController: isLoggedIn ? MainTabBarViewController() : LoginViewController())
         window?.makeKeyAndVisible()
     }
 

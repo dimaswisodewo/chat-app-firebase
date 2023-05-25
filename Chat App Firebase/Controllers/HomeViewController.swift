@@ -22,7 +22,7 @@ class HomeViewController: UIViewController {
         
         setupBarButtonItems()
         
-        getUserData()
+//        getUserData()
     }
     
     private func setupBarButtonItems() {
@@ -31,28 +31,28 @@ class HomeViewController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "pencil"), style: .plain, target: self, action: #selector(handleNewMessage))
     }
       
-    private func getUserData() {
-        
-        guard let uid = Auth.auth().currentUser?.uid else {
-            
-            print("uid of current user is not found")
-            return
-        }
-        
-        let ref = self.db.collection("users")
-        let docRef = ref.document(uid)
-        
-        docRef.getDocument { document, error in
-            
-            if let document = document, document.exists {
-                
-                let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
-                print("Document data: \(dataDescription)")
-            } else {
-                print("Document does not exist")
-            }
-        }
-    }
+//    private func getUserData() {
+//
+//        guard let uid = Auth.auth().currentUser?.uid else {
+//
+//            print("uid of current user is not found")
+//            return
+//        }
+//
+//        let ref = self.db.collection("users")
+//        let docRef = ref.document(uid)
+//
+//        docRef.getDocument { document, error in
+//
+//            if let document = document, document.exists {
+//
+//                let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
+//                print("Document data: \(dataDescription)")
+//            } else {
+//                print("Document does not exist")
+//            }
+//        }
+//    }
     
     @objc func logoutPressed() {
         
@@ -70,6 +70,5 @@ class HomeViewController: UIViewController {
         let newMessageVC = NewMessageTableViewController()
         navigationController?.pushViewController(newMessageVC, animated: true)
     }
-    
 }
 
