@@ -11,8 +11,12 @@ import FirebaseAuth
 class AuthManager {
     
     static let shared = AuthManager()
+    
+    var currentUser: User? {
+        get { Auth.auth().currentUser }
+    }
             
-    func getCurrentUser(completion: @escaping (User?) -> Void ) {
+    func getCurrentUser(completion: @escaping (UserModel?) -> Void ) {
         
         guard let currentUser = Auth.auth().currentUser else {
             
@@ -32,7 +36,7 @@ class AuthManager {
                 let name = data?["name"] as? String ?? "-"
                 
                 print("Current user email: \(email), name: \(name)")
-                let user = User(email: email, name: name)
+                let user = UserModel(email: email, name: name)
                 completion(user)
                 
             } else {

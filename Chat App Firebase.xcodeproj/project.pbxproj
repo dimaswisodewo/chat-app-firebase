@@ -22,9 +22,10 @@
 		38375F1B2A0343B8009F170B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 38375F192A0343B8009F170B /* LaunchScreen.storyboard */; };
 		38375F242A03466D009F170B /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38375F232A03466D009F170B /* LoginViewController.swift */; };
 		38375F292A03498D009F170B /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38375F282A03498D009F170B /* Extensions.swift */; };
+		3863E3F42A204F0400A483BE /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3863E3F32A204F0400A483BE /* LoadingViewController.swift */; };
 		38A1FF352A1F53DA008F87BE /* NewMessageTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38A1FF342A1F53DA008F87BE /* NewMessageTableViewController.swift */; };
 		38A1FF382A1F5532008F87BE /* UserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38A1FF372A1F5532008F87BE /* UserTableViewCell.swift */; };
-		38A1FF3B2A1F6495008F87BE /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38A1FF3A2A1F6495008F87BE /* User.swift */; };
+		38A1FF3B2A1F6495008F87BE /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38A1FF3A2A1F6495008F87BE /* UserModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,9 +43,10 @@
 		38375F1C2A0343B8009F170B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		38375F232A03466D009F170B /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		38375F282A03498D009F170B /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		3863E3F32A204F0400A483BE /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
 		38A1FF342A1F53DA008F87BE /* NewMessageTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMessageTableViewController.swift; sourceTree = "<group>"; };
 		38A1FF372A1F5532008F87BE /* UserTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTableViewCell.swift; sourceTree = "<group>"; };
-		38A1FF3A2A1F6495008F87BE /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		38A1FF3A2A1F6495008F87BE /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +122,7 @@
 				38A1FF342A1F53DA008F87BE /* NewMessageTableViewController.swift */,
 				382E0BE42A1FAD2C00784C7C /* MainTabBarViewController.swift */,
 				382E0BE62A1FAD8800784C7C /* ProfileViewController.swift */,
+				3863E3F32A204F0400A483BE /* LoadingViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -143,7 +146,7 @@
 		38A1FF392A1F647E008F87BE /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				38A1FF3A2A1F6495008F87BE /* User.swift */,
+				38A1FF3A2A1F6495008F87BE /* UserModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -233,11 +236,12 @@
 				38A1FF382A1F5532008F87BE /* UserTableViewCell.swift in Sources */,
 				382E0BE52A1FAD2C00784C7C /* MainTabBarViewController.swift in Sources */,
 				38375F132A0343B7009F170B /* HomeViewController.swift in Sources */,
-				38A1FF3B2A1F6495008F87BE /* User.swift in Sources */,
+				38A1FF3B2A1F6495008F87BE /* UserModel.swift in Sources */,
 				38375F0F2A0343B7009F170B /* AppDelegate.swift in Sources */,
 				382E0BEC2A1FB50D00784C7C /* DatabaseManager.swift in Sources */,
 				382E0BEA2A1FB34600784C7C /* AuthManager.swift in Sources */,
 				38A1FF352A1F53DA008F87BE /* NewMessageTableViewController.swift in Sources */,
+				3863E3F42A204F0400A483BE /* LoadingViewController.swift in Sources */,
 				38375F112A0343B7009F170B /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

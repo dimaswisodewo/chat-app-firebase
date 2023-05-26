@@ -7,7 +7,7 @@
 
 import Foundation
 
-class User {
+class UserModel {
         
     init(email: String, name: String) {
         self.email = email

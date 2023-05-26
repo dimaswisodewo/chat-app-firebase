@@ -119,6 +119,8 @@ class LoginViewController: UIViewController {
     
     let db = Firestore.firestore()
     
+    private let loadingViewController = LoadingViewController()
+    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
@@ -138,12 +140,28 @@ class LoginViewController: UIViewController {
         setupRegisterButton()
         setupLogoImage()
         setupLoginRegisterSegmentedControl()
+        setupLoadingView()
     }
     
     override func viewDidLayoutSubviews() {
         
         // Make logo image container circle
         logoImageContainer.layer.cornerRadius = logoImageContainer.bounds.height / 2
+    }
+    
+    private func setupLoadingView() {
+        
+        loadingViewController.modalPresentationStyle = .overCurrentContext
+        loadingViewController.modalTransitionStyle = .crossDissolve
+    }
+    
+    private func setLoading(_ isActive: Bool) {
+        
+        if (isActive) {
+            present(loadingViewController, animated: true)
+        } else {
+            loadingViewController.dismiss(animated: true)
+        }
     }
     
     private func setErrorLabel(isHidden: Bool, errorMessage: String? = nil) {
@@ -278,6 +296,8 @@ class LoginViewController: UIViewController {
             return
         }
         
+        setLoading(true)
+        
         // Auth login
         Auth.auth().signIn(withEmail: email, password: password) { [weak self] authResult, error in
             
@@ -285,10 +305,13 @@ class LoginViewController: UIViewController {
                 
                 print("Register error: \(String(describing: error?.localizedDescription))")
                 self?.setErrorLabel(isHidden: false, errorMessage: error?.localizedDescription)
+                self?.setLoading(false)
                 return
             }
             
             // Successfully authenticate user
+            
+            self?.setLoading(false)
             
             guard let unwrappedSelf = self else { return }
             
@@ -309,6 +332,8 @@ class LoginViewController: UIViewController {
             return
         }
         
+        setLoading(true)
+        
         // Auth register
         Auth.auth().createUser(withEmail: email, password: password) { [weak self] authResult, error in
             
@@ -316,6 +341,7 @@ class LoginViewController: UIViewController {
                 
                 print("Register error: \(String(describing: error?.localizedDescription))")
                 self?.setErrorLabel(isHidden: false, errorMessage: error?.localizedDescription)
+                self?.setLoading(false)
                 return
             }
             
@@ -325,6 +351,7 @@ class LoginViewController: UIViewController {
                 
                 print("Failed retrieving user uid")
                 self?.setErrorLabel(isHidden: false, errorMessage: "Failed retrieving user uid")
+                self?.setLoading(false)
                 return
             }
             
@@ -338,12 +365,14 @@ class LoginViewController: UIViewController {
                 if err != nil {
                     print("Error saving to Firestore: \(String(describing: err))")
                     self?.setErrorLabel(isHidden: false, errorMessage: "Failed retrieving user uid")
+                    self?.setLoading(false)
                     return
                 }
                 
                 print("Saved user successfully into Firestore")
                 self?.errorLabel.isHidden = false
                 self?.errorLabel.text = "Register successful!"
+                self?.setLoading(false)
             })
         }
     }

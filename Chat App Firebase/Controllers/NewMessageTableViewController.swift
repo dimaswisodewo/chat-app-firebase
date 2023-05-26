@@ -14,13 +14,13 @@ class NewMessageTableViewController: UITableViewController {
     
     let db = Firestore.firestore()
     
-    var users = [User]()
+    var users = [UserModel]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         navigationItem.title = "New message"
-        
+                
         // Setup bar button item
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.backward"), style: .plain, target: self, action: #selector(handleCancel))
         
@@ -28,6 +28,11 @@ class NewMessageTableViewController: UITableViewController {
         tableView.register(UserTableViewCell.self, forCellReuseIdentifier: cellId)
         
         fetchUsers()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        
+        tabBarController?.tabBar.isHidden = true
     }
 
     @objc private func handleCancel() {
@@ -37,7 +42,12 @@ class NewMessageTableViewController: UITableViewController {
     
     private func fetchUsers() {
         
-        let ref = db.collection("users").order(by: "name")
+        guard let currentEmail = AuthManager.shared.currentUser?.email else { return }
+        
+        let ref = db.collection("users")
+            .whereField("email", isNotEqualTo: currentEmail)
+            .limit(to: 10)
+        
         ref.getDocuments { [weak self] querySnapshot, error in
             
             guard let querySnapshot = querySnapshot else {
@@ -48,11 +58,14 @@ class NewMessageTableViewController: UITableViewController {
             for document in querySnapshot.documents {
                 
                 let data = document.data()
-                let user = User(email: data["email"] as! String, name: data["name"] as! String)
+                let user = UserModel(email: data["email"] as! String, name: data["name"] as! String)
                                 
                 self?.users.append(user)
             }
             
+            self?.users = (self?.users.sorted { $0.name < $1.name })!
+            
+            print("Fetch users, count: \(querySnapshot.count)")
             self?.tableView.reloadData()
         }
     }
@@ -80,7 +93,7 @@ class NewMessageTableViewController: UITableViewController {
         contentConfig.textProperties.font = UIFont.boldSystemFont(ofSize: 20)
         contentConfig.secondaryTextProperties.numberOfLines = 0
         contentConfig.secondaryTextProperties.font = UIFont.systemFont(ofSize: 14)
-        contentConfig.directionalLayoutMargins = .init(top: 20, leading: 36, bottom: 20, trailing: 36)
+        contentConfig.directionalLayoutMargins = .init(top: 20, leading: 14, bottom: 20, trailing: 14)
         contentConfig.textToSecondaryTextVerticalPadding = 10.0
         
         cell.contentConfiguration = contentConfig
